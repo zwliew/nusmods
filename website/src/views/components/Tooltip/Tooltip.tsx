@@ -1,5 +1,5 @@
 import * as React from 'react';
-import Tippy, { TippyProps, TippySingleton, TippySingletonProps } from '@tippy.js/react';
+import Tippy, { TippyProps } from '@tippyjs/react';
 import { animateFill } from 'tippy.js'; // eslint-disable-line import/no-extraneous-dependencies
 
 import { isIOS } from 'bootstrapping/browser';
@@ -23,15 +23,14 @@ const Tooltip: React.FC<Props> = (props) => {
   return <Tippy {...tippyProps} />;
 };
 
-export type TooltipGroupProps = Omit<TippySingletonProps, 'plugins'>;
-const TooltipGroup: React.FC<TooltipGroupProps> = (props) => {
+const TooltipGroup: React.FC<Props> = (props) => {
   const singletonProps = {
     plugins: DEFAULT_PLUGINS,
     animateFill: true,
     ...props,
   };
 
-  return <TippySingleton {...singletonProps} />;
+  return <Tippy {...singletonProps} />;
 };
 
 export default Tooltip;

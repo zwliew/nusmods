@@ -2,12 +2,12 @@ import * as React from 'react';
 
 import retryImport from 'utils/retryImport';
 
-import { Props, TooltipGroupProps } from './Tooltip';
+import { Props } from './Tooltip';
 
 // Can't use react-loadable for this since children and other props
 // are not passed down - https://github.com/jamiebuilds/react-loadable/pull/161
 let AsyncTooltip: React.ComponentType<Props> | null = null;
-let AsyncTooltipGroup: React.ComponentType<TooltipGroupProps> | null = null;
+let AsyncTooltipGroup: React.ComponentType<Props> | null = null;
 
 const useLoadTooltip = () => {
   React.useEffect(() => {
@@ -25,14 +25,14 @@ const Tooltip = React.memo<Props>(({ children, ...props }) => {
   useLoadTooltip();
 
   if (!AsyncTooltip) {
-    return children;
+    return children as React.ReactElement;
   }
 
   return <AsyncTooltip {...props}>{children}</AsyncTooltip>;
 });
 Tooltip.displayName = 'Tooltip';
 
-const TooltipGroup = React.memo<TooltipGroupProps>(({ children, ...props }) => {
+const TooltipGroup = React.memo<Props>(({ children, ...props }) => {
   useLoadTooltip();
 
   if (!AsyncTooltipGroup) {
